@@ -85,7 +85,7 @@ const currentNetworkInterfaceIndex = computed<number>({
 </script>
 
 <template>
-  <v-card dark class="mb-3 pr-6 pb-3" style="background-color: #006492">
+  <v-card dark class="mb-3 pr-6 pb-3" style="background-color: #812200">
     <v-card-title>Networking</v-card-title>
     <div class="ml-5">
       <v-form ref="form" v-model="settingsValid">

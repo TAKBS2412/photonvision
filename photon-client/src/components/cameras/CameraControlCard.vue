@@ -91,7 +91,7 @@ const expanded = ref([]);
 </script>
 
 <template>
-  <v-card dark class="pr-6 pb-3" style="background-color: #006492">
+  <v-card dark class="pr-6 pb-3" style="background-color: #812200">
     <v-card-title>Camera Control</v-card-title>
     <v-row class="pl-6">
       <v-col>
@@ -161,16 +161,16 @@ const expanded = ref([]);
 }
 .v-data-table {
   text-align: center;
-  background-color: #006492 !important;
+  background-color: #812200 !important;
 
   th,
   td {
-    background-color: #005281 !important;
+    background-color: #812200 !important;
     font-size: 1rem !important;
   }
 
   tbody :hover tr {
-    background-color: #005281 !important;
+    background-color: #812200 !important;
   }
 
   ::-webkit-scrollbar {

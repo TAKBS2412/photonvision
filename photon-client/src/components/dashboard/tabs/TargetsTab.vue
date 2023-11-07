@@ -115,11 +115,11 @@ const currentPipelineSettings = useCameraSettingsStore().currentPipelineSettings
   width: 100%;
   height: 100%;
   text-align: center;
-  background-color: #006492 !important;
+  background-color: #812200 !important;
 
   th,
   td {
-    background-color: #006492 !important;
+    background-color: #812200 !important;
     font-size: 1rem !important;
   }
 

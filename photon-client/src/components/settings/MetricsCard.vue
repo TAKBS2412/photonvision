@@ -97,7 +97,7 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <v-card dark class="mb-3 pr-6 pb-3" style="background-color: #006492">
+  <v-card dark class="mb-3 pr-6 pb-3" style="background-color: #812200">
     <v-card-title style="display: flex; justify-content: space-between">
       <span>Stats</span>
       <pv-icon icon-name="mdi-reload" color="white" tooltip="Reload Metrics" hover @click="fetchMetrics" />
@@ -176,7 +176,7 @@ onBeforeMount(() => {
 .v-data-table {
   thead,
   tbody {
-    background-color: #006492;
+    background-color: #812200;
   }
 
   :hover {

@@ -7,7 +7,7 @@ import type { VuetifyThemeVariant } from "vuetify/types/services/theme";
 Vue.use(Vuetify);
 
 const darkTheme: VuetifyThemeVariant = Object.freeze({
-  primary: "#006492",
+  primary: "#812200",
   secondary: "#39A4D5",
   accent: "#FFD843",
   background: "#232C37",
@@ -18,7 +18,7 @@ const darkTheme: VuetifyThemeVariant = Object.freeze({
 });
 
 const lightTheme: VuetifyThemeVariant = Object.freeze({
-  primary: "#006492",
+  primary: "#812200",
   secondary: "#39A4D5",
   accent: "#FFD843",
   background: "#232C37",

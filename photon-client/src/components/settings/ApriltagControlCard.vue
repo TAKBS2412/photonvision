@@ -16,7 +16,7 @@ const quaternionToEuler = (rot_quat: Quaternion): { x: number; y: number; z: num
 </script>
 
 <template>
-  <v-card dark class="pr-6 pb-3" style="background-color: #006492">
+  <v-card dark class="pr-6 pb-3" style="background-color: #812200">
     <v-card-title>AprilTag Field Layout</v-card-title>
     <div class="ml-5">
       <p>Field width: {{ useSettingsStore().currentFieldLayout.field.width.toFixed(2) }} meters</p>
@@ -56,11 +56,11 @@ const quaternionToEuler = (rot_quat: Quaternion): { x: number; y: number; z: num
   width: 100%;
   height: 100%;
   text-align: center;
-  background-color: #006492 !important;
+  background-color: #812200 !important;
 
   th,
   td {
-    background-color: #006492 !important;
+    background-color: #812200 !important;
     font-size: 1rem !important;
   }
 

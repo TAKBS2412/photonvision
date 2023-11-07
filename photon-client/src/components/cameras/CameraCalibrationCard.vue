@@ -485,7 +485,7 @@ const endCalibration = () => {
 
   th,
   td {
-    background-color: #006492 !important;
+    background-color: #812200 !important;
     font-size: 1rem !important;
   }
 
