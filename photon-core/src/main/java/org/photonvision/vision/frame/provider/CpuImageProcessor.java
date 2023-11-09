@@ -123,4 +123,11 @@ public abstract class CpuImageProcessor implements FrameProvider {
     public void requestFrameCopies(boolean copyInput, boolean copyOutput) {
         // We don't actually do zero-copy, so this method is a no-op
     }
+
+    @Override
+    public void requestContrast(double contrastMultiplier) {
+        synchronized (m_mutex) {
+            m_contrastPipe.setParams(new ContrastPipe.ContrastParams(contrastMultiplier));
+        }
+    }
 }

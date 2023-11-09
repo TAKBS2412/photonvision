@@ -35,4 +35,7 @@ public interface FrameProvider extends Supplier<Frame> {
 
     /** Ask the camera to rotate frames it outputs */
     void requestHsvSettings(HSVPipe.HSVParams params);
+
+    /** Ask the camera to change the contrast */
+    void requestContrast(double contrastMultiplier);
 }

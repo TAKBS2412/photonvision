@@ -87,6 +87,7 @@ public class VisionRunner {
             }
             frameSupplier.requestFrameRotation(settings.inputImageRotationMode);
             frameSupplier.requestFrameCopies(settings.inputShouldShow, settings.outputShouldShow);
+            frameSupplier.requestContrast(settings.contrastMultiplier);
 
             // Grab the new camera frame
             var frame = frameSupplier.get();

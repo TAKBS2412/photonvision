@@ -111,4 +111,9 @@ public class LibcameraGpuFrameProvider implements FrameProvider {
     public void requestFrameCopies(boolean copyInput, boolean copyOutput) {
         LibCameraJNI.setFramesToCopy(copyInput, copyOutput);
     }
+
+    @Override
+    public void requestContrast(double unused) {
+        // No op
+    }
 }

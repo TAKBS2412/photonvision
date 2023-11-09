@@ -25,7 +25,7 @@ public class ContrastPipe extends CVPipe<Mat, Mat, ContrastPipe.ContrastParams> 
     @Override
     protected Mat process(Mat in) {
 
-        double alpha = 2.0;
+        double alpha = params.contrastMultiplier;
 
         Mat newMat = Mat.zeros(in.size(), in.type());
         byte[] imageData = new byte[(int) (in.total() * in.channels())];
@@ -58,8 +58,17 @@ public class ContrastPipe extends CVPipe<Mat, Mat, ContrastPipe.ContrastParams> 
         return (byte) intVal;
     }
 
-    // TODO: Add contrast value?
     public static class ContrastParams {
-        public ContrastParams() {}
+        public static final double DEFAULT_CONTRAST_MULTIPLIER = 2.0;
+
+        public double contrastMultiplier;
+
+        public ContrastParams() {
+            this(DEFAULT_CONTRAST_MULTIPLIER);
+        }
+
+        public ContrastParams(double contrastMultiplier) {
+            this.contrastMultiplier = contrastMultiplier;
+        }
     }
 }
