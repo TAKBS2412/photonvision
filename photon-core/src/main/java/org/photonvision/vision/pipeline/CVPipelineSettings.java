@@ -50,6 +50,7 @@ public class CVPipelineSettings implements Cloneable {
     public int cameraRedGain = 11;
     public int cameraBlueGain = 20;
     public int cameraVideoModeIndex = 0;
+    public double contrastMultiplier = 1;
     public FrameDivisor streamingFrameDivisor = FrameDivisor.NONE;
     public boolean ledMode = false;
     public boolean inputShouldShow = false;
@@ -66,6 +67,7 @@ public class CVPipelineSettings implements Cloneable {
                 && Double.compare(that.cameraGain, cameraGain) == 0
                 && Double.compare(that.cameraRedGain, cameraRedGain) == 0
                 && Double.compare(that.cameraBlueGain, cameraBlueGain) == 0
+                && Double.compare(that.contrastMultiplier, contrastMultiplier) == 0
                 && cameraVideoModeIndex == that.cameraVideoModeIndex
                 && ledMode == that.ledMode
                 && pipelineType == that.pipelineType
@@ -89,6 +91,7 @@ public class CVPipelineSettings implements Cloneable {
                 cameraRedGain,
                 cameraBlueGain,
                 cameraVideoModeIndex,
+                contrastMultiplier,
                 streamingFrameDivisor,
                 ledMode,
                 inputShouldShow,
@@ -129,6 +132,8 @@ public class CVPipelineSettings implements Cloneable {
                 + cameraBlueGain
                 + ", cameraVideoModeIndex="
                 + cameraVideoModeIndex
+                + ", contrastMultiplier="
+                + contrastMultiplier
                 + ", streamingFrameDivisor="
                 + streamingFrameDivisor
                 + ", ledMode="

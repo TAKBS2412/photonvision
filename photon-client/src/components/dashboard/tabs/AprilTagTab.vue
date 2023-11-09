@@ -51,6 +51,16 @@ const interactiveCols = computed(
       @input="(value) => useCameraSettingsStore().changeCurrentPipelineSetting({ blur: value }, false)"
     />
     <pv-slider
+      v-model="useCameraSettingsStore().currentPipelineSettings.contrastMultiplier"
+      label="Contrast"
+      tooltip="Adjusts the contrast of the image"
+      :min="0.1"
+      :max="3"
+      :slider-cols="interactiveCols"
+      :step="0.1"
+      @input="(args) => useCameraSettingsStore().changeCurrentPipelineSetting({ contrastMultiplier: args }, false)"
+    />
+    <pv-slider
       v-model="currentPipelineSettings.threads"
       class="pt-2"
       :slider-cols="interactiveCols"
