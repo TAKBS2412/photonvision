@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.opencv.core.Mat;
+import org.opencv.videoio.VideoCapture;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.photonvision.common.util.math.MathUtils;
 import org.photonvision.vision.calibration.CameraCalibrationCoefficients;
@@ -39,9 +40,9 @@ public class FileFrameProvider extends CpuImageProcessor {
     private final int thisIndex = count++;
     private final Path path;
     private final int millisDelay;
-    private final CVMat originalFrame;
-
-    private final FrameStaticProperties properties;
+    private final VideoCapture video;
+    private final double fov;
+    private final CameraCalibrationCoefficients calibration;
 
     private long lastGetMillis = System.currentTimeMillis();
 
@@ -65,15 +66,11 @@ public class FileFrameProvider extends CpuImageProcessor {
         if (!Files.exists(path))
             throw new RuntimeException("Invalid path for image: " + path.toAbsolutePath());
         this.path = path;
+        this.fov = fov;
         this.millisDelay = 1000 / maxFPS;
+        this.calibration = calibration;
 
-        Mat rawImage = Imgcodecs.imread(path.toString());
-        if (rawImage.cols() > 0 && rawImage.rows() > 0) {
-            properties = new FrameStaticProperties(rawImage.width(), rawImage.height(), fov, calibration);
-            originalFrame = new CVMat(rawImage);
-        } else {
-            throw new RuntimeException("Image loading failed!");
-        }
+        video = new VideoCapture(path.toAbsolutePath().toString());
     }
 
     /**
@@ -98,8 +95,15 @@ public class FileFrameProvider extends CpuImageProcessor {
 
     @Override
     public CapturedFrame getInputMat() {
-        var out = new CVMat();
-        out.copyTo(originalFrame);
+        FrameStaticProperties properties;
+        Mat rawImage = new Mat();
+        video.read(rawImage);
+
+        if (rawImage.cols() > 0 && rawImage.rows() > 0) {
+            properties = new FrameStaticProperties(rawImage.width(), rawImage.height(), fov, calibration);
+        } else {
+            throw new RuntimeException("Image loading failed!");
+        }
 
         // block to keep FPS at a defined rate
         if (System.currentTimeMillis() - lastGetMillis < millisDelay) {
@@ -111,7 +115,8 @@ public class FileFrameProvider extends CpuImageProcessor {
         }
 
         lastGetMillis = System.currentTimeMillis();
-        return new CapturedFrame(out, properties, MathUtils.wpiNanoTime());
+
+        return new CapturedFrame(new CVMat(rawImage), properties, MathUtils.wpiNanoTime());
     }
 
     @Override
