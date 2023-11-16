@@ -90,7 +90,7 @@ public class Draw2dCrosshairPipe
     }
 
     public static class Draw2dCrosshairParams {
-        public boolean showCrosshair = true;
+        public boolean showCrosshair = false;
         public Color crosshairColor = Color.GREEN;
 
         public final boolean shouldDraw;
