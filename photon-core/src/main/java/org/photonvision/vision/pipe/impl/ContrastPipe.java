@@ -17,37 +17,41 @@
 
 package org.photonvision.vision.pipe.impl;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import org.opencv.core.Mat;
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
 import org.photonvision.vision.pipe.CVPipe;
 
 public class ContrastPipe extends CVPipe<Mat, Mat, ContrastPipe.ContrastParams> {
+
+    // Map of gamma to LUT, where gamma is represented as tenths (i.e., 0.9 is represented as the integer 9).
+    private final Map<Integer, Mat> tenthsToLookUpTable = new HashMap<>();
+
+    private int doubleToTenths(double d) {
+      return (int) Math.round(d * 10);
+    }
 
     @Override
     protected Mat process(Mat in) {
 
         double alpha = params.contrastMultiplier;
-
-        Mat newMat = Mat.zeros(in.size(), in.type());
-        byte[] imageData = new byte[(int) (in.total() * in.channels())];
-        byte[] newImageData = new byte[(int) (in.total() * in.channels())];
-
-        in.get(0, 0, imageData);
-
-        for (int i = 0; i < imageData.length; i++) {
-            int convertedImageData = imageData[i];
-            if (convertedImageData < 0) {
-                convertedImageData += 256;
+        int alphaAsTenths = doubleToTenths(alpha);
+        Mat lookUpTable = tenthsToLookUpTable.get(alphaAsTenths);
+        if (lookUpTable == null) {
+            lookUpTable = new Mat(1, 256, CvType.CV_8U);
+            byte[] lookUpTableData = new byte[(int) (lookUpTable.total() * lookUpTable.channels())];
+            for (int i = 0; i < lookUpTable.cols(); i++) {
+                lookUpTableData[i] = saturate(Math.pow(i / 255.0, alpha) * 255.0);
             }
-            // -128 = (128, 128, 128)
-            // -127 = (129, 129, 129)
-            // -1 = (255, 255, 255)
-            // 0 = (0, 0, 0)
-            // 127 = (127, 127, 127)
-            newImageData[i] = saturate(convertedImageData * alpha);
-            // newImageData[i] = (byte) -1;
+            lookUpTable.put(0, 0, lookUpTableData);
+            tenthsToLookUpTable.put(alphaAsTenths, lookUpTable);
         }
 
-        newMat.put(0, 0, newImageData);
+        Mat newMat = Mat.zeros(in.size(), in.type());
+        Core.LUT(in, lookUpTable, newMat);
 
         return newMat;
     }
